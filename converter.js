@@ -17,7 +17,7 @@ var main = {
     makeBean : function() {
         
         var _this = this;
-        var input = $('#input-text').val().toLowerCase().split('\n');
+        var input = $('#input-text').val().trim().toLowerCase().split('\n');
         
         for(var i=0 ; i<input.length;i++) {
             
@@ -32,7 +32,7 @@ var main = {
                 str = str.replaceAll('_'+alp , alp.toUpperCase()); 
 
             }
-            input[i]= "private String " + str;
+            input[i]= "private String " + str +";";
 
         }
         
