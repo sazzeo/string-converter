@@ -16,7 +16,11 @@ var main = {
             _this.makeToEntity();
 
         })
+                $('#btn-set').on('click' , function() {
 
+            _this.makeSetQuery();
+
+        })
         
 
     },
@@ -82,6 +86,46 @@ var main = {
         
         $('#output-text').val(output);
         
+
+    }
+
+    , makeSetQuery : function() {
+        
+        var input = $('#input-text').val().trim().split('\n');
+        var camel = [];
+        for(var i=0 ; i<input.length;i++) {
+            
+            var str = input[i].toLowerCase();
+            while(true) {
+                
+                var num = str.indexOf('_')+1;
+                
+                if (num==0) break;
+                
+                var alp = str[num];
+                str = str.replaceAll('_'+alp , alp.toUpperCase()); 
+
+            }
+            camel[i]= str;
+        
+
+        }
+
+        
+        var res = "<set>\n";
+        for(var i=0; i<input.length ;i++) {
+
+            res+='<if test="' + camel[i] + ' != null">\n'
+            + ', ' + input[i] + " = #{" + camel[i] + "}\n"
+            +'</if>\n'
+        }
+        
+        res+="</set>"
+        
+        var output =res;
+        $('#output-text').val(output);
+        
+
 
     }
 
